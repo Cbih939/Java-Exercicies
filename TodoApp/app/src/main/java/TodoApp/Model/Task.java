@@ -1,6 +1,8 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt 
+to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java 
+to edit this template
  */
 package TodoApp.Model;
 
@@ -23,7 +25,9 @@ public class Task {
     private Date createdAt;
     private Date updatedAt;
 
-    public Task(int id, int idProject, String name, String description, String notes, boolean isCompleted, Date deadline, Date createdAt, Date updatedAt) {
+    public Task(int id, int idProject, String name, 
+            String description, String notes, boolean isCompleted, 
+            Date deadline, Date createdAt, Date updatedAt) {
         this.id = id;
         this.idProject = idProject;
         this.name = name;
@@ -34,7 +38,11 @@ public class Task {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-
+    
+    public Task(){
+        this.createdAt = new Date();
+    }
+            
     public int getId() {
         return id;
     }
@@ -109,7 +117,15 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" + "id=" + id + ", idProject=" + idProject + ", name=" + name + ", description=" + description + ", notes=" + notes + ", isCompleted=" + isCompleted + ", deadline=" + deadline + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
+        return "Task{" + "id=" + id 
+                + ", idProject=" + idProject 
+                + ", name=" + name 
+                + ", description=" + description 
+                + ", notes=" + notes 
+                + ", isCompleted=" + isCompleted 
+                + ", deadline=" + deadline 
+                + ", createdAt=" + createdAt 
+                + ", updatedAt=" + updatedAt + '}';
     }
     
 }
