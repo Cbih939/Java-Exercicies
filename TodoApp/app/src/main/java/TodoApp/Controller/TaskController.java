@@ -23,7 +23,8 @@ import java.util.List;
 public class TaskController {
     // salvando dados do banco 
     public void save (Task task){
-        String sql = "INSERT INTO tasks (idProject,"
+        String sql = "INSERT INTO tasks ("
+                + "idProject,"
                 + "name,"
                 + "description," 
                 + "completed,"
@@ -45,7 +46,7 @@ public class TaskController {
             statement.setDate(7, new Date(task.getCreatedAt().getTime()));
             statement.setDate(8, new Date(task.getUpdatedAt().getTime()));
             statement.execute();
-        }catch (Exception ex){
+        }catch (SQLException ex){
             throw new RuntimeException("Erro ao salvar a tarefa"
                     + ex.getMessage(), ex);
         } finally {
@@ -54,7 +55,8 @@ public class TaskController {
     }
     // atualizando dados do banco 
     public void update(Task task){
-        String sql = "UPDATE tasks SET idProject = ?, "
+        String sql = "UPDATE tasks SET "
+                + "idProject = ?, "
                 + "name = ?, "
                 + "description = ?, "
                 + "completed = ?, "
@@ -82,30 +84,10 @@ public class TaskController {
             statement.setInt(9, task.getId());
     // executando a query        
             statement.execute();           
-        }catch(Exception ex){
+        }catch(SQLException ex){
            throw new RuntimeException("Erro ao atualizar a tarefa"
                     + ex.getMessage(), ex);
         } finally {
-            ConnectionFactory.closeConnection(connection, statement);
-        }
-    }
-    // removendo dados do banco 
-    public void removeById(int TaskId) throws SQLException{
-        String sql = "DELETE FROM tasks WHERE id = ?";
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try{
-    // criação da conexão com o banco de dados        
-           connection = ConnectionFactory.getConnection();
-    // preparando a query       
-           statement = connection.prepareStatement(sql);
-    // setando os valores       
-           statement.setInt(1, TaskId);
-    // executando a query        
-           statement.execute(); 
-        } catch (Exception ex){
-           throw new RuntimeException("Erro ao deletar a tarefa"); 
-        } finally{
             ConnectionFactory.closeConnection(connection, statement);
         }
     }
@@ -138,7 +120,7 @@ public class TaskController {
                 task.setUpdatedAt(resultSet.getDate("updatedAt"));
                 tasks.add(task);          
             }
-        }catch(Exception ex){   
+        }catch(SQLException ex){   
             throw new RuntimeException("Erro ao criar a lista de tarefa" 
                     + ex.getMessage(), ex);
         } finally{
@@ -146,5 +128,25 @@ public class TaskController {
         }
     //lista de tarefas que foi criada e carregada do banco de dados
         return tasks;
+    }  
+        // removendo dados do banco 
+    public void removeById(int TaskId) throws SQLException{
+        String sql = "DELETE FROM tasks WHERE id = ?";
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try{
+    // criação da conexão com o banco de dados        
+           connection = ConnectionFactory.getConnection();
+    // preparando a query       
+           statement = connection.prepareStatement(sql);
+    // setando os valores       
+           statement.setInt(1, TaskId);
+    // executando a query        
+           statement.execute(); 
+        } catch (SQLException ex){
+           throw new RuntimeException("Erro ao deletar a tarefa"); 
+        } finally{
+            ConnectionFactory.closeConnection(connection, statement);
+        }
     }
 }

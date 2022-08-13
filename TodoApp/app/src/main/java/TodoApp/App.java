@@ -3,8 +3,11 @@
  */
 package TodoApp;
 
+import TodoApp.Controller.ProjectController;
+import TodoApp.Model.Project;
 import TodoApp.Util.ConnectionFactory;
 import java.sql.Connection;
+import java.util.List;
 
 public class App {
     public String getGreeting() {
@@ -13,7 +16,7 @@ public class App {
 
     public static void main(String[] args) {
         Connection c = ConnectionFactory.getConnection();
+        ConnectionFactory.closeConnection(c);   
         
-        ConnectionFactory.closeConnection(c);
     }
 }
